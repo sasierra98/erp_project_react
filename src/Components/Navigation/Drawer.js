@@ -10,10 +10,34 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const drawerWidth = 240;
+
+const InventoryItems = [
+  {
+    "name": "Products",
+    "icon": <FastfoodIcon />,
+    "key": "products"
+  },
+  {
+    "name": "Categories",
+    "icon": <CategoryIcon />,
+    "key": "categories"
+  },
+  {
+    "name": "Inventories",
+    "icon": <InventoryIcon />,
+    "key": "inventories"
+  }
+];
+
+
+// const menuItems = [
+  // InventoryItems
+// ]
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -78,8 +102,8 @@ export default function DrawerComponent(props) {
       </DrawerHeader>
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+        {InventoryItems.map((inventory, index) => (
+          <ListItem key={inventory.key} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -94,14 +118,14 @@ export default function DrawerComponent(props) {
                   justifyContent: 'center',
                 }}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {inventory.icon}
               </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: props.open ? 1 : 0 }} />
+              <ListItemText primary={inventory.name} sx={{ opacity: props.open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
-      <Divider />
+      {/* <Divider />
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -125,7 +149,7 @@ export default function DrawerComponent(props) {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </Drawer>
   );
 }
