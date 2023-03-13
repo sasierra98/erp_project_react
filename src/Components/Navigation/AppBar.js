@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { connect, useDispatch, useSelector, useStore } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -28,11 +29,8 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 
-export default function AppBarComponent(props) {
+function AppBarComponent(props) {
 
-    const handleDrawerOpen = () => {
-        props.setOpen(true);
-    };
 
     return (
         <AppBar position="fixed" open={props.open}>
@@ -40,7 +38,7 @@ export default function AppBarComponent(props) {
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
-                    onClick={handleDrawerOpen}
+                    onClick={props.setOpen}
                     edge="start"
                     sx={{
                         marginRight: 5,
@@ -56,3 +54,7 @@ export default function AppBarComponent(props) {
         </AppBar>
     );
 }
+
+const MemoizedAppBarComponent = React.memo(AppBarComponent);
+
+export default MemoizedAppBarComponent;

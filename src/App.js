@@ -1,9 +1,27 @@
+import { BrowserRouter as Router } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import './App.css';
-import MiniDrawer from './Components/Navigation/index';
+import { MainLayout } from './Layout/MainLayout/index';
+import { InventoryPage } from './Pages/Inventory';
+
+const Routes = () => {
+  return useRoutes([
+    {
+      path: "/",
+      element: <MainLayout />,
+      children: [
+        {
+          path: "/inventories",
+          element: <InventoryPage />,
+        }
+      ]
+    }
+  ]);
+} 
 
 function App() {
   return (
-    <MiniDrawer/>
+    <MainLayout />
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />

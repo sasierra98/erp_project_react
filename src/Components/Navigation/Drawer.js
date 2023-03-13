@@ -18,19 +18,22 @@ const drawerWidth = 240;
 
 const InventoryItems = [
   {
-    "name": "Products",
-    "icon": <FastfoodIcon />,
-    "key": "products"
+    name: "Products",
+    icon: <FastfoodIcon />,
+    key: "products",
+    path: "/products"
   },
   {
-    "name": "Categories",
-    "icon": <CategoryIcon />,
-    "key": "categories"
+    name: "Categories",
+    icon: <CategoryIcon />,
+    key: "categories",
+    path: "/categories"
   },
   {
-    "name": "Inventories",
-    "icon": <InventoryIcon />,
-    "key": "inventories"
+    name: "Inventories",
+    icon: <InventoryIcon />,
+    key: "inventories",
+    path: "/inventories"
   }
 ];
 
@@ -86,17 +89,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function DrawerComponent(props) {
+function DrawerComponent(props) {
   const theme = useTheme();
 
-  const handleDrawerClose = () => {
-    props.setOpen(false);
-  };
+  // const handleDrawerClose = () => {
+    //  props.setOpen(false);
+    // toggleApp(false);
+  // };
 
   return (
     <Drawer variant="permanent" open={props.open}>
       <DrawerHeader>
-        <IconButton onClick={handleDrawerClose}>
+        <IconButton onClick={props.setOpen}>
           {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </IconButton>
       </DrawerHeader>
@@ -105,11 +109,12 @@ export default function DrawerComponent(props) {
         {InventoryItems.map((inventory, index) => (
           <ListItem key={inventory.key} disablePadding sx={{ display: 'block' }}>
             <ListItemButton
+              to={inventory.path}
               sx={{
                 minHeight: 48,
                 justifyContent: props.open ? 'initial' : 'center',
                 px: 2.5,
-              }}
+              }}    
             >
               <ListItemIcon
                 sx={{
@@ -125,31 +130,10 @@ export default function DrawerComponent(props) {
           </ListItem>
         ))}
       </List>
-      {/* <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: props.open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: props.open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: props.open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
-    </Drawer>
+      </Drawer>
   );
 }
+
+const MemoizedDrawerComponent = React.memo(DrawerComponent);
+
+export default MemoizedDrawerComponent;
